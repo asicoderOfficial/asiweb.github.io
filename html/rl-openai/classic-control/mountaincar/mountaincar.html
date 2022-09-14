@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <link rel="stylesheet" href="https://latex.now.sh/style.css">
+  </head>
+  <header>
+    <h1><span class="latex">Discrete mountain car</h1>
+    <p class="author">
+      Reach the flag as fast as possible, using a discrete set of actions.<br>
+    </p>
+  </header>
+  <body id="top">
+    <div class="abstract">
+      <h2>Abstract</h2>
+      <p>FILL ABSTRACT AT THE END</p>
+    </div>
+    <nav class="toc" role="navigation">
+      <h2>Contents</h2>
+        <ol>
+          <li><a href="#introduction">Introduction</a></li>
+          <li><a href="#environment">Environment</a></li>
+          <li><a href="#basic-setup">Basic setup</a></li>
+          <li><a href="#naive-strategies">Naive strategies</a></li>
+            <ol>
+              <li><a href="#maximize-mean-reward">Maximize mean reward</a></li>
+            </ol>
+          <li><a href="#conclusion">Conclusion</a></li>
+        </ol>
+    </nav>
+    <main>
+      <article>
+        <div id="introduction">
+          <h2>1. Introduction</h2>
+          <p>The <a href="https://www.gymlibrary.dev/environments/classic_control/mountain_car/" target="_blank">discrete mountain car</a> is a deterministic environment,
+          where a car is initially placed at the bottom of a sinusoidal valley, and its goal is to reach the flag at the top, as quickly as possible.</p>
+        </div>
+        <div id="environment">
+          <h2 id="environment">2. Environment</h2>
+          <figure>
+            <img src="media/circuit_overview.png" width="600" height="400">
+            <figcaption>
+              Initial position of the car, and the flag at the top.
+            </figcaption>
+          </figure>
+          <p></p>
+          Each state is defined by:
+          <ul>
+            <li>Position of the car along the x-axis.</li>
+            <li>Velocity of the car.</li>
+          </ul>
+          At each time step, the agent can take 3 actions:
+          <ul>
+            <li>Accelerate to the left.</li>
+            <li>Do nothing.</li>
+            <li>Accelerate to the right.</li>
+          </ul>
+          Initially, the car is placed at a random point in the x-axis between [-0.6, -0.4], and its velocity is 0.
+        </div>
+        <div id="basic-setup">
+          <h2 id="basic-setup">3. Basic setup</h2>
+        </div>
+        <div id="naive-strategies">
+          <h2 id="naive-strategies">4. Naive strategies</h2>
+        </div>
+        <div id="maximize-mean-reward">
+          <h2 id="maximize-mean-reward">4.1 Maximize mean reward</h2>
+          <figure>
+            <img src="media/naivecar_mean.gif" width="600" height="400">
+            <figcaption>
+              After around 700 steps, the car overfits learning to gain momentum, but it does not take advantage of it, so it ends up only moving backwards to gain as much momentum as possible.
+            </figcaption>
+          </figure>
+        </div>
+        <div id="conclusion">
+          <h2 id="conclusion">5. Conclusion</h2>
+        </div>
+
+      </article>
+    </main>
+  </body>
+  <h1></h1>
+</html>
