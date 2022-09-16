@@ -113,11 +113,25 @@ time.sleep(0.01)</code>
           </p>
           <p>
             Following that reasoning, we define the reward function as:
-
+          <pre>
+            <code class="language-python">
+(rewards[curr_state][action] + # Previous reward for selected action.
+(gym_reward * \ # Gym reward, penalizing as it is always -1.
+(1 / (sin_of_pos * sin_reward_reducing)) * \ # y-axis value ('height').
+(1 / (abs(velocity) * velocity_reward_reducing)) * \ # current velocity.
+(1 / (abs(env_high - pos) * flag_distance_mult)))) \  # distance to flag.
+/ 2 # Average.</code>
+          </pre>
+          Where 3 new variables are defined:
+          <ul>
+            <li><code>sin_reward_reducing</code>: to control the weight of the y-axis value. Inversely proportional.</li>
+            <li><code>velocity_reward_reducing</code>: to control the weight of the velocity. Inversely proportional.</li>
+            <li><code>flag_distance_mult</code>: to control the weight of the distance to the flag. Directly proportional.</li>
+          </ul>
           </p>
           <p>
             As seen in Figure <a href="#naivecarsingif">4.2</a>, the car, starting from -0.4177 is able to reach the flag in 2075 steps, 
-            taking 54 seconds to do so.
+            taking 54 seconds to do so. Thus, it will be used as baseline.
           </p>
           <figure>
             <img src="media/sin.gif" width="600" height="400" id="naivecarsingif">
