@@ -87,6 +87,7 @@ time.sleep(0.01)</code>
           <h2 id="naive-strategies">4. Naive strategies</h2>
           <p>In this first chapter, I will implement a few simple strategies that require no theory to be coded, just some simple reasoning.</p>
           <p>Thereupon, they are generally not sophisticated to achieve a good performance, but they are a good starting point to understand the environment and create a baseline.</p>
+          <p>The code can be found <a href="https://github.com/asicoderOfficial/RL-implementations/blob/naive/src/discrete_mountain_car/naive.py">here</a>. Each implementation explained at the following subsections, has its own class, with a parent class <code>MCDNaive</code>.</p>
         </div>
         <div id="maximize-mean-reward">
           <h2 id="maximize-mean-reward">4.1 Maximize mean reward</h2>
@@ -104,6 +105,9 @@ time.sleep(0.01)</code>
               </p>
             </figcaption>
           </figure>
+          <p>
+            See the source at child class <code>MCDNaiveMean</code>.
+          </p>
         </div>
         <div>
           <h2 id="sin">4.2 Sin function rewarding</h2>
@@ -122,8 +126,9 @@ time.sleep(0.01)</code>
 (1 / (abs(env_high - pos) * flag_distance_mult)))) \  # distance to flag.
 / 2 # Average.</code>
           </pre>
-          Where 3 new variables are defined:
+          Where 4 new variables are defined:
           <ul>
+            <li><code>sin_of_pos = sin(pos)</code></li>
             <li><code>sin_reward_reducing</code>: to control the weight of the y-axis value. Inversely proportional.</li>
             <li><code>velocity_reward_reducing</code>: to control the weight of the velocity. Inversely proportional.</li>
             <li><code>flag_distance_mult</code>: to control the weight of the distance to the flag. Directly proportional.</li>
@@ -139,6 +144,9 @@ time.sleep(0.01)</code>
                 <b>Figure 4.2</b>
               </p>
           </figure>
+          <p>
+            See the source at child class <code>MCDNaiveSin</code>.
+          </p>
         </div>
         <div id="conclusion">
           <h2 id="conclusion">5. Conclusion</h2>
