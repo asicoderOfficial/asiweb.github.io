@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <link rel="stylesheet" href="https://latex.now.sh/style.css">
+    <!--Code highlighting-->
+    <link rel="stylesheet" href="../../../../code-highlighting/prism.css">
+    <script src="../../code-highlighting/prism.js"></script>
+    <!--Math code-->
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  </head>
+  <header>
+    <h1><span class="latex">The basics of deep learning</h1>
+    <p class="author">
+      From maths to PyTorch.<br>
+    </p>
+  </header>
+  <body id="top">
+    <div class="abstract">
+      <h2>Abstract</h2>
+      <p>In the present page, mathematical concepts are explained, oriented to PyTorch.</p>
+    </div>
+    <nav class="toc" role="navigation">
+      <h2>Contents</h2>
+        <ol>
+          <li><a href="#introduction">Introduction</a></li>
+          <li><a href="#usefulresources">Useful resources</a></li>
+          <li><a href="#maths">Maths review</a></li>
+          <li><a href="#neuralnetwork">What is a neural network?</a></li>
+          <li><a href="#nomenclature">Nomenclature</a></li>
+          <li><a href="#basictrainingloop">Basic workflow</a></li>
+            <ol>
+                <li><a href="#datapreparation">Data preparation</a></li>
+                <li><a href="#modeldefinition">Model definition</a></li>
+                <li><a href="#parameters">Parameters initialization</a></li>
+                <li><a href="#lossfunction">Loss function</a></li>
+                <li><a href="#optimizer">Optimizer</a></li>
+                <li><a href="#training loop">Training loop</a></li>
+                <ol>
+                    <li><a href="#forward">Forward pass</a></li>
+                    <li><a href="#losscalculation">Loss calculation</a></li>
+                    <li><a href="#backward">Backward pass</a></li>
+                    <li><a href="#optimization">Optimization</a></li>
+                </ol>
+                <li><a href="#testing">Testing</a></li>
+            </ol>
+          <li><a href="#conclusions">Conclusions</a></li>
+        </ol>
+    </nav>
+    <main>
+        <article>
+            <div id="introduction"></div>
+                <h2>1. Introduction</h2>
+                <p>The goal of the present page is to teach the basics of <b>supervised</b> deep learning, oriented to using PyTorch. While there is a quick review, a 
+                previous basic understanding of probability, linear algebra, statistics and mathematical analysis is needed.</p>
+            <div id="usefulresources"></div>
+                <h2>2. Useful resources</h2>
+                <p>The below listed learning resources are all <b>FREE</b>.</p>
+                <p>For seeing a broad overview of methods and what to learn, check the <a href="https://github.com/AMAI-GmbH/AI-Expert-Roadmap">AI expert roadmap</a>.</p>
+                <ul>
+                    <li>Maths</li>
+                        <ul>
+                            <li>Linear algebra</li>
+                                <ul>
+                                    <li><a href="https://www.youtube.com/playlist?list=PLZHQObOWTQDPD3MizzM2xVFitgF8hE_ab">Essence of linear algebra. By 3Blue1Brown.</a>Visual and good for a geometric understanding.</li>
+                                    <li><a href="https://www.youtube.com/watch?v=JnTa9XtvmfI">Linear algebra, full college course. By freeCodeCamp.org.</a>Pragmatic.</li>
+                                    <li><a href="https://www.youtube.com/playlist?list=PLMrJAkhIeNNRjxJ_sMtJ02geqw_-vuB7O">Linear algebra. By Steve Brunton.</a>More oriented to data science.</li>
+                                </ul>
+                            <li>Analysis</li>
+                                <ul>
+                                    <li><a href="https://www.youtube.com/playlist?list=PLZHQObOWTQDMsr9K-rj53DwVRMYO3t5Yr">Essence of calculus. By 3Blue1Brown.</a>Visual.</li>
+                                    <li><a href="https://www.youtube.com/playlist?list=PLZHQObOWTQDNPOjrT6KVlfJuKtYTftqH6">Differential equations. By 3Blue1Brown.</a></li>
+                                </ul>
+                            <li>Probability and statistics</li>
+                                <ul>
+                                    <li><a href="https://www.youtube.com/playlist?list=PLblh5JKOoLUK0FLuzwntyYI10UQFUhsY9">Statistics fundamentals. By StatQuest.</a>Visual, chilled, full of examples and with just the needed jargon.</li>
+                                    <li><a href="https://www.youtube.com/playlist?list=PLvxOuBpazmsOGOursPoofaHyz_1NpxbhA">Basics of Probability. By jbstatistics.</a>Short, visual, straight to the point.</li>
+                                </ul>
+                        </ul>
+                        <li>Programming</li>
+                            <ul>
+                                <li><a href="https://www.youtube.com/watch?v=rfscVS0vtbw">Python for beginners. By freeCodeCamp.org.</a>Teaches all, with examples and exercises.</li>
+                                <li><a href="https://www.youtube.com/playlist?list=PLP8iPy9hna6SCcFv3FvY_qjAmtTsNYHQE">Julia Tutorials (Basic). By the Julia programming language.</a>One of the languages of the future.</li>
+                            </ul>
+                        <li>Data science & machine learning</li>
+                            <ul>
+                                <li><a href="https://www.youtube.com/watch?v=LHBE6Q9XlzI">Python for Data Science. By freeCodeCamp.org.</a>Extense, from the beginning. Teaches multiple useful libraries.</li>
+                                <li><a href="https://mlu-explain.github.io/">MLU explain. By Amazon.</a>Visual webpage, teaches multiple basic concepts.</li>
+                                <li><a href="https://www.coursera.org/specializations/machine-learning-introduction">Machine learning specialization. By Deeplearning.AI.</a>New version of the famous Machine Learning Stanford course, taught by Andrew NG.</li>
+                            </ul>
+                </ul>
+        </article>
+    </main>
+  </body>
+          
+
+</html>
