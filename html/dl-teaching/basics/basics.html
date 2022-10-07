@@ -24,9 +24,14 @@
         <ol>
           <li><a href="#introduction">Introduction</a></li>
           <li><a href="#usefulresources">Useful resources</a></li>
-          <li><a href="#maths">Maths review</a></li>
-          <li><a href="#neuralnetwork">What is a neural network?</a></li>
           <li><a href="#nomenclature">Nomenclature</a></li>
+          <li><a href="#maths">Maths review</a></li>
+            <ol>
+                <li><a href="#linearalgebra">Linear algebra</a></li>
+                <li><a href="#calculus">Calculus</a></li>
+                <li><a href="#probabilitystats">Probability and statistics</a></li>
+            </ol>
+          <li><a href="#neuralnetwork">What is a neural network?</a></li>
           <li><a href="#basictrainingloop">Basic workflow</a></li>
             <ol>
                 <li><a href="#datapreparation">Data preparation</a></li>
@@ -88,6 +93,76 @@
                                 <li><a href="https://www.coursera.org/specializations/machine-learning-introduction">Machine learning specialization. By Deeplearning.AI.</a>New version of the famous Machine Learning Stanford course, taught by Andrew NG.</li>
                             </ul>
                 </ul>
+            <div id="maths"></div>
+                <h2>2. Maths review</h2>
+                <p>A quick recap of basic maths concepts important for machine learning models.</p>
+                <div id="linearalgebra"></div>
+                    <h2>2.1. Linear algebra</h2>
+                        <h3>Vectors</h3>
+                            <p>Leaving aside the different interpretations of this concept, a vector starts from an origin (where all coordinates intersect),
+                                and ends in a point in space, defined by each value of the different dimensions. 
+                                These values are represented as numbers in an ordered list.
+                            </p>
+                            <p>
+                                Concretely, for data science, a vector of features stores the different values of a data point,
+                                and the vector of weights stores the different values of the parameters of a model.
+                            </p>
+                        <h3>Matrices</h3>
+                            <p>They are a set of vectors, stored by columns.</p>
+                        <h3>Operations</h3>
+                            <p>All operations on linear algebra arise from basis vectors, which contain a 1 for a coordinate value, and all 0 for the rest.</p>
+                            <h4>Linear combinations</h4>
+                            <div align="center">
+                                <math xmlns="http://www.w3.org/1998/Math/MathML">
+                                    <mstyle displaystyle="true">
+                                        <mover>
+                                        <mi>u</mi>
+                                        <mo stretchy="false">&#x2192;</mo>
+                                        </mover>
+                                        <mi>=</mi>
+                                        <mi>a</mi>
+                                        <mover>
+                                        <mi>v</mi>
+                                        <mo stretchy="false">&#x2192;</mo>
+                                        </mover>
+                                        <mo>+</mo>
+                                        <mi>b</mi>
+                                        <mover>
+                                        <mi>w</mi>
+                                        <mo stretchy="false">&#x2192;</mo>
+                                        </mover>
+                                        <mspace width="20px"></mspace>
+                                        <mo>&#x2200;</mo>
+                                        <mi>a</mi>
+                                        <mo>,</mo>
+                                        <mi>b</mi>
+                                        <mo>&#x2208;</mo>
+                                        <mi mathvariant="double-struck">R</mi>
+                                        <mo>;</mo>
+                                        <mover>
+                                        <mi>u</mi>
+                                        <mo stretchy="false">&#x2192;</mo>
+                                        </mover>
+                                        <mo>,</mo>
+                                        <mover>
+                                        <mi>v</mi>
+                                        <mo stretchy="false">&#x2192;</mo>
+                                        </mover>
+                                        <mo>,</mo>
+                                        <mover>
+                                        <mi>w</mi>
+                                        <mo stretchy="false">&#x2192;</mo>
+                                        </mover>
+                                        <mo>&#x2208;</mo>
+                                        <msup>
+                                            <mi mathvariant="double-struck">R</mi>
+                                            <mi mathvariant="double-struck">N</mi>
+                                        </msup>
+                                    </mstyle>
+                                </math>
+                            </div>
+                            <p>When varying a and b values, </p>
+
         </article>
     </main>
   </body>
