@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!--Latex css-->
+    <link rel="stylesheet" href="https://latex.now.sh/style.css">
+    <!--Code highlighting-->
+    <link rel="stylesheet" href="https://latex.now.sh/prism/prism.css">
+    <script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
+    <!--Math code-->
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <!--Misc-->
+    <meta charset="UTF-8">
+    <!--No cache, to refresh on GitHub pages fast.-->
+    <meta http-equiv='cache-control' content='no-cache'> 
+    <meta http-equiv='expires' content='0'> 
+    <meta http-equiv='pragma' content='no-cache'>
+  </head>
+
+  <body id="top">
+    <span class="sidenote left">
+      <a href="https://asicoderofficial.github.io/asiweb.github.io/">
+        <img src="../../../../logos/logo.png" width="200" height="100">
+      </a>
+    </span>
+    <!-- Header -->
+    <header>
+      <h1><span class="latex">Value & policy iteration</h1>
+      <p class="author">
+        Two approaches to the same problem.<br>
+      </p>
+    </header>
+    <div class="abstract">
+      <h2>Abstract</h2>
+      <p>
+        When searching for the optimal policy in a Markov decision process, we can use two approaches: value iteration and policy iteration. Both approaches are based on the Bellman equation, but they differ in the way they use it. In this article, we will see how they work and how they differ.
+      </p>
+    </div>
+
+    <nav role="navigation">
+      <!-- Index of contents-->
+      <h2>Contents</h2>
+      <ol>
+        <li>
+          <a href="#introduction">Introduction</a>
+        </li>
+        <li>
+          <a href="#valueiteration">Value iteration</a>
+        </li>
+        <li>
+          <a href="#policyiteration">Policy iteration</a>
+        </li>
+        <li>
+          <a href="#comparison">Comparison</a>
+        </li>
+        <li>
+          <a href="#conclusions">Conclusions</a>
+        </li>
+      </ol>
+    </nav>
+    <main>
+        <article>
+            <div id="introduction">
+                <h2>1. Introduction</h2>
+                <p>
+                    In model based approaches, where we know the probabilities of states transitioning and reward function beforehand, we can simulate the agent interactions with the environment to iteratively find out which is the optimal policy, by relying on dynamic programming, and then apply it directly to the real environment.
+                </p>
+                <p>
+                    To do so, we can use two approaches: value iteration and policy iteration. Both approaches are based on the Bellman equation, but they differ in the way they use it. In this article, we will see how they work, how they differ, when to use one or the other and an example of application of both with a real OpenAI Gym environment.
+                </p>
+            </div>
+            <div id="valueiteration">
+                <h2>2. Value iteration</h2>
+                <p>
+                    By using Bellman's optimality condition
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mstyle displaystyle="true">
+                            <mi>V</mi>
+                            <mrow>
+                            <mo>(</mo>
+                            <mi>s</mi>
+                            <mo>)</mo>
+                            </mrow>
+                            <mo>=</mo>
+                            <munder>
+                            <mo>max</mo>
+                            <mi>&#x3C0;</mi>
+                            </munder>
+                            <mi>&#x1D53C;</mi>
+                            <mrow>
+                            <mo>(</mo>
+                            <msub>
+                                <mi>r</mi>
+                                <mn>0</mn>
+                            </msub>
+                            <mo>+</mo>
+                            <mi>&#x3B3;</mi>
+                            <mi>V</mi>
+                            <mrow>
+                                <mo>(</mo>
+                                <msup>
+                                <mi>s</mi>
+                                <mo>&#x2032;</mo>
+                                </msup>
+                                <mo>)</mo>
+                            </mrow>
+                            <mo>)</mo>
+                            </mrow>
+                        </mstyle>
+                    </math>
+                    , we refine the <b>estimates of the value function</b> through optimizing a sequence of events of a <b>known</b> model. The recursive expression is the following:
+                    <div align="center">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mstyle displaystyle="true">
+                                <mi>V</mi>
+                                <mrow>
+                                <mo>(</mo>
+                                <mi>s</mi>
+                                <mo>)</mo>
+                                </mrow>
+                                <mo>=</mo>
+                                <munder>
+                                <mo>max</mo>
+                                <mi>a</mi>
+                                </munder>
+                                <munder>
+                                <mo>&#x2211;</mo>
+                                <mrow>
+                                    <msup>
+                                    <mi>s</mi>
+                                    <mo>&#x2032;</mo>
+                                    </msup>
+                                </mrow>
+                                </munder>
+                                <mi>P</mi>
+                                <mrow>
+                                <mo>(</mo>
+                                <msup>
+                                    <mi>s</mi>
+                                    <mo>&#x2032;</mo>
+                                </msup>
+                                <mrow>
+                                    <mo>&#x2223;</mo>
+                                </mrow>
+                                <mi>s</mi>
+                                <mo>,</mo>
+                                <mi>a</mi>
+                                <mo>)</mo>
+                                </mrow>
+                                <mrow>
+                                <mo>(</mo>
+                                <mi>R</mi>
+                                <mrow>
+                                    <mo>(</mo>
+                                    <msup>
+                                    <mi>s</mi>
+                                    <mo>&#x2032;</mo>
+                                    </msup>
+                                    <mo>,</mo>
+                                    <mi>s</mi>
+                                    <mo>,</mo>
+                                    <mi>a</mi>
+                                    <mo>)</mo>
+                                </mrow>
+                                <mo>+</mo>
+                                <mi>&#x3B3;</mi>
+                                <mi>V</mi>
+                                <mrow>
+                                    <mo>(</mo>
+                                    <msup>
+                                    <mi>s</mi>
+                                    <mo>&#x2032;</mo>
+                                    </msup>
+                                    <mo>)</mo>
+                                </mrow>
+                                <mo>)</mo>
+                                </mrow>
+                            </mstyle>
+                        </math>
+                    </div>
+                    Note that if it is a discrete process, the first term of the summation, has a probability of 1 for all state-action pairs.
+                    <figure>
+                        <img id="valueiterationpseudocode" src="valueiterationpseudocode.png" width="600" height="400">
+                        <figcaption>
+                            Figure 2.1: Value iteration algorithm pseudocode. Source: <a href="https://github.com/mbodenham/gridworld-value-iteration">GitHub</a>.
+                        </figcaption>
+                    </figure>
+                    As it can be observed at Figure <a href="#valueiterationpseudocode">2.1</a>, the algorithm is composed of two main parts: the <b>policy evaluation</b> and the <b>policy improvement</b>.
+                    <p>The policy evaluation is the process of updating the value function, which happens inside the loop, and the policy improvement is the process of updating the policy.</p>
+                    <p>The algorithm stops when the value function converges, which means that the maximum difference between the value function of the current iteration and the previous one is less than a threshold.
+                    </p>
+                    <p>
+                        <ul>
+                            <li>Time complexity: 
+                                <math xmlns="http://www.w3.org/1998/Math/MathML">
+                                    <mstyle displaystyle="true">
+                                        <mi>O</mi>
+                                        <mrow>
+                                        <mo>(</mo>
+                                        <msup>
+                                            <mrow>
+                                            <mo>|</mo>
+                                            <mi>S</mi>
+                                            <mo>|</mo>
+                                            </mrow>
+                                            <mn>2</mn>
+                                        </msup>
+                                        <mrow>
+                                            <mo>|</mo>
+                                            <mi>A</mi>
+                                            <mo>|</mo>
+                                        </mrow>
+                                        <mo>)</mo>
+                                        </mrow>
+                                    </mstyle>
+                                </math>
+                            </li>
+                            <li>Space complexity: 
+                                <math xmlns="http://www.w3.org/1998/Math/MathML">
+                                    <mstyle displaystyle="true">
+                                        <mi>O</mi>
+                                        <mrow>
+                                        <mo>(</mo>
+                                            <mrow>
+                                            <mo>|</mo>
+                                            <mi>S</mi>
+                                            <mo>|</mo>
+                                            </mrow>
+                                        <mo>)</mo>
+                                        </mrow>
+                                    </mstyle>
+                                </math>
+                            </li>
+                        </ul>
+                    </p>
+            </div>
+            <div id="policyiteration">
+                <h2>3. Policy iteration</h2>
+
+            </div>
+        </article>
+    </main>
+  </body>
+</html>
