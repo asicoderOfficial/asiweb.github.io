@@ -8,12 +8,8 @@
     <script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
     <!--Misc-->
     <meta charset="UTF-8">
-    <title>Asier Serrano personal webpage & blog.</title>
-    <meta name="description" content="Open source, maths & more.">
-    <meta name="keywords" content="open source, reinforcement learning, maths, qlearning, openai gym">
-    <meta property="og:title" content="Asier Serrano">
-    <meta property="og:description" content="A blog & website to explain more in depth my process of thinking and coming up with solutions that are then open sourced on GitHub. Specially focused on reinforcement learning by now.">
-    <meta property="og:type" content="website">
+    <!--Math code-->
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <!--No cache, to refresh on GitHub pages fast.-->
     <meta http-equiv='cache-control' content='no-cache'> 
     <meta http-equiv='expires' content='0'> 
@@ -71,7 +67,7 @@
                 <figure>
                     <img id="rl-diagram" src="rl-diagram.png" width="600" height="400">
                     <figcaption>
-                        Figure 1.1: Reinforcement learning workflow. Source: <a href="">Towards Data Science</a>.
+                        Figure 1.1: Reinforcement learning workflow. Source: <a href="https://towardsdatascience.com/introduction-to-reinforcement-learning-markov-decision-process-44c533ebf8da">Towards Data Science</a>.
                     </figcaption>
                 </figure>
                 <p></p>
@@ -119,7 +115,503 @@
             <div id="behindthescenes">
                 <h2>4. Behind the scenes</h2>
                 <p>
-                The goal of reinforcement learning is to <b>design an optimal probabilistic policy function for deciding which actions to take given a state</b>.
+                  The goal of reinforcement learning is to <b>design an optimal probabilistic policy function 
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                      <mstyle displaystyle="true">
+                        <mi>&#x3C0;</mi>
+                        <mrow>
+                          <mo>(</mo>
+                          <mi>s</mi>
+                          <mo>,</mo>
+                          <mi>a</mi>
+                          <mo>)</mo>
+                        </mrow>
+                      </mstyle>
+                    </math>
+                  for deciding which actions to take given a state to maximize the future reward</b>.</p>
+                  <p>
+                  That means we aim to generate the most optimal sequence (denominated as <i>trajectory</i> or <i>episode</i>) of time contiguous [state, action, reward] tuples of the form:
+                  <div align="center">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                      <mstyle displaystyle="true">
+                        <mi>&#x3C4;</mi>
+                        <mo>=</mo>
+                        <mrow>
+                          <mo>(</mo>
+                          <msub>
+                            <mi>S</mi>
+                            <mn>0</mn>
+                          </msub>
+                          <mo>,</mo>
+                          <msub>
+                            <mi>A</mi>
+                            <mn>0</mn>
+                          </msub>
+                          <mo>,</mo>
+                          <msub>
+                            <mi>R</mi>
+                            <mn>0</mn>
+                          </msub>
+                          <mo>,</mo>
+                          <msub>
+                            <mi>S</mi>
+                            <mn>1</mn>
+                          </msub>
+                          <mo>,</mo>
+                          <msub>
+                            <mi>A</mi>
+                            <mn>1</mn>
+                          </msub>
+                          <mo>,</mo>
+                          <msub>
+                            <mi>R</mi>
+                            <mn>1</mn>
+                          </msub>
+                          <mo>,</mo>
+                          <mo>...</mo>
+                          <mo>,</mo>
+                          <msub>
+                            <mi>S</mi>
+                            <mrow>
+                              <mi>t</mi>
+                              <mo>-</mo>
+                              <mn>1</mn>
+                            </mrow>
+                          </msub>
+                          <mo>,</mo>
+                          <msub>
+                            <mi>A</mi>
+                            <mrow>
+                              <mi>t</mi>
+                              <mo>-</mo>
+                              <mn>1</mn>
+                            </mrow>
+                          </msub>
+                          <mo>,</mo>
+                          <msub>
+                            <mi>R</mi>
+                            <mrow>
+                              <mi>t</mi>
+                              <mo>-</mo>
+                              <mn>1</mn>
+                            </mrow>
+                          </msub>
+                          <mo>,</mo>
+                          <msub>
+                            <mi>S</mi>
+                            <mi>t</mi>
+                          </msub>
+                          <mo>,</mo>
+                          <msub>
+                            <mi>A</mi>
+                            <mi>t</mi>
+                          </msub>
+                          <mo>,</mo>
+                          <msub>
+                            <mi>R</mi>
+                            <mi>t</mi>
+                          </msub>
+                          <mo>)</mo>
+                        </mrow>
+                      </mstyle>
+                    </math>
+                  </div>
+
+                </p>
+                <p>
+                  To start, the state 
+                  <math xmlns="http://www.w3.org/1998/Math/MathML">
+                    <mstyle displaystyle="true">
+                      <msub>
+                        <mi>S</mi>
+                        <mn>0</mn>
+                      </msub>
+                    </mstyle>
+                  </math>
+                  is randomly sampled from the <i>start-state distribution</i>,
+                  <math xmlns="http://www.w3.org/1998/Math/MathML">
+                    <mstyle displaystyle="true">
+                      <msub>
+                        <mi>&#x3C1;</mi>
+                        <mn>0</mn>
+                      </msub>
+                    </mstyle>
+                  </math>
+                  , in which 
+                  <math xmlns="http://www.w3.org/1998/Math/MathML">
+                    <mstyle displaystyle="true">
+                      <msub>
+                        <mi>S</mi>
+                        <mn>0</mn>
+                      </msub>
+                      <mo>~</mo>
+                      <msub>
+                        <mi>&#x3C1;</mi>
+                        <mn>0</mn>
+                      </msub>
+                      <mrow>
+                        <mo>(</mo>
+                        <mo>&#x22C5;</mo>
+                        <mo>)</mo>
+                      </mrow>
+                    </mstyle>
+                  </math>
+                .
+                </p>
+                <p>
+                  Transitions between states may be:
+                  <ul>
+                    <li>Deterministic: for the same state
+                      <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mstyle displaystyle="true">
+                          <msub>
+                            <mi>S</mi>
+                            <mn>t</mn>
+                          </msub>
+                        </mstyle>
+                      </math>
+                    and action
+                      <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mstyle displaystyle="true">
+                          <msub>
+                            <mi>A</mi>
+                            <mn>t</mn>
+                          </msub>
+                        </mstyle>
+                      </math>
+                    , the resulting state 
+                      <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mstyle displaystyle="true">
+                          <msub>
+                            <mi>S</mi>
+                            <mrow>
+                              <mi>t</mi>
+                              <mo>+</mo>
+                              <mn>1</mn>
+                            </mrow>
+                          </msub>
+                        </mstyle>
+                      </math>
+                    obtained from the computation of the function
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                      <mstyle displaystyle="true">
+                        <mrow>
+                          <mi>f</mi>
+                          <mrow>
+                            <mo>(</mo>
+                            <msub>
+                              <mi>S</mi>
+                              <mi>t</mi>
+                            </msub>
+                            <mo>,</mo>
+                            <msub>
+                              <mi>A</mi>
+                              <mi>t</mi>
+                            </msub>
+                            <mo>)</mo>
+                          </mrow>
+                        </mrow>
+                      </mstyle>
+                    </math>
+                    , never varies.
+                    </li>
+                    <li>Stochastic: instead of a function, the next state is sampled from a probability distribution.
+                      <div align="center">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                          <mstyle displaystyle="true">
+                            <msub>
+                              <mi>S</mi>
+                              <mrow>
+                                <mi>t</mi>
+                                <mo>+</mo>
+                                <mn>1</mn>
+                              </mrow>
+                            </msub>
+                            <mo>~</mo>
+                            <mi>&#x3C1;</mi>
+                            <mrow>
+                              <mo>(</mo>
+                              <msub>
+                                <mi>S</mi>
+                                <mrow>
+                                  <mi>t</mi>
+                                  <mo>+</mo>
+                                  <mn>1</mn>
+                                </mrow>
+                              </msub>
+                              <mrow>
+                                <mo>&#x2223;</mo>
+                              </mrow>
+                              <msub>
+                                <mi>S</mi>
+                                <mi>t</mi>
+                              </msub>
+                              <mo>,</mo>
+                              <msub>
+                                <mi>A</mi>
+                                <mi>t</mi>
+                              </msub>
+                              <mo>)</mo>
+                            </mrow>
+                          </mstyle>
+                        </math>
+                      </div>
+                    </li>
+                  </ul> 
+                </p>
+                <p>
+                  The mentioned trajectories, are possible because the agent is describing a <a href="https://en.wikipedia.org/wiki/Markov_decision_process">Markov Decision Process</a> (see Figure <a href="#mdpexample">4.1</a>), which itself is an extension of <a href="https://en.wikipedia.org/wiki/Markov_chain">Markov chains</a>.
+                  It exhibits the Markov (<i>memoryless</i>) property, as probabilities of different outcomes are not dependent on the past, just the current state.
+                  In order to find the optimal trajectory, we can follow 
+                <figure>
+                    <img id="mdpexample" src="mdpexample.png" width="600" height="400">
+                    <figcaption>
+                        Figure 4.1: Example of a Markov Decision Process. Source: <a href="https://towardsdatascience.com/understanding-the-markov-decision-process-mdp-8f838510f150">Towards Data Science</a>.
+                    </figcaption>
+                </figure>
+
+                </p>
+                <p>
+                  For achieving the previously mentioned goal, there are two different strategies.
+                </p>
+                <p>
+                  <h3>Value learning</h3>
+                  Tries to quantify the <b>value</b> (expected return) of each state-action pair which can be obtained following a policy
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                      <mstyle displaystyle="true">
+                        <mi>&#x3C0;</mi>
+                      </mstyle>
+                    </math>
+                    :
+                    <p>
+                    <div align="center">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                      <mstyle displaystyle="true">
+                        <msub>
+                          <mi>V</mi>
+                          <mi>&#x3C0;</mi>
+                        </msub>
+                        <mrow>
+                          <mo>(</mo>
+                          <mi>s</mi>
+                          <mo>)</mo>
+                        </mrow>
+                        <mo>=</mo>
+                        <msub>
+                          <mi>&#x1D53C;</mi>
+                          <mi>&#x3C0;</mi>
+                        </msub>
+                        <mrow>
+                          <mo>{</mo>
+                          <msub>
+                            <mi>R</mi>
+                            <mi>t</mi>
+                          </msub>
+                          <mrow>
+                            <mo>&#x2223;</mo>
+                          </mrow>
+                          <msub>
+                            <mi>s</mi>
+                            <mn>0</mn>
+                          </msub>
+                          <mo>=</mo>
+                          <mi>s</mi>
+                          <mo>}</mo>
+                        </mrow>
+                      </mstyle>
+                    </math>
+                    </div>
+                    <div align="center">
+                      <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mstyle displaystyle="true">
+                          <mo>=</mo>
+                          <msub>
+                            <mi>&#x1D53C;</mi>
+                            <mi>&#x3C0;</mi>
+                          </msub>
+                          <mrow>
+                            <mo>{</mo>
+                            <munder>
+                              <mo>&#x2211;</mo>
+                              <mi>t</mi>
+                            </munder>
+                            <msup>
+                              <mi>&#x3B3;</mi>
+                              <mi>t</mi>
+                            </msup>
+                            <msub>
+                              <mi>r</mi>
+                              <mi>t</mi>
+                            </msub>
+                            <mrow>
+                              <mo>&#x2223;</mo>
+                            </mrow>
+                            <msub>
+                              <mi>s</mi>
+                              <mn>0</mn>
+                            </msub>
+                            <mo>=</mo>
+                            <mi>s</mi>
+                            <mo>}</mo>
+                          </mrow>
+                        </mstyle>
+                      </math>
+                    </div>
+                    <div align="center">
+                      <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mstyle displaystyle="true">
+                          <mo>=</mo>
+                          <msub>
+                            <mi>&#x1D53C;</mi>
+                            <mi>&#x3C0;</mi>
+                          </msub>
+                          <mrow>
+                            <mo>{</mo>
+                            <msub>
+                              <mi>r</mi>
+                              <mn>0</mn>
+                            </msub>
+                            <mo>+</mo>
+                            <mrow>
+                              <munderover>
+                                <mo>&#x2211;</mo>
+                                <mrow>
+                                  <mi>t</mi>
+                                  <mo>=</mo>
+                                  <mn>1</mn>
+                                </mrow>
+                                <mo>&#x221E;</mo>
+                              </munderover>
+                            </mrow>
+                            <msup>
+                              <mi>&#x3B3;</mi>
+                              <mi>t</mi>
+                            </msup>
+                            <msub>
+                              <mi>r</mi>
+                              <mi>t</mi>
+                            </msub>
+                            <mrow>
+                              <mo>&#x2223;</mo>
+                            </mrow>
+                            <msub>
+                              <mi>s</mi>
+                              <mn>1</mn>
+                            </msub>
+                            <mo>=</mo>
+                            <msup>
+                              <mi>s</mi>
+                              <mo>&#x2032;</mo>
+                            </msup>
+                            <mo>}</mo>
+                          </mrow>
+                        </mstyle>
+                      </math>
+                    </div>
+                    <div align="center">
+                      <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mstyle displaystyle="true">
+                          <mo>=</mo>
+                          <msub>
+                            <mi>&#x1D53C;</mi>
+                            <mi>&#x3C0;</mi>
+                          </msub>
+                          <mrow>
+                            <mo>{</mo>
+                            <msub>
+                              <mi>r</mi>
+                              <mn>0</mn>
+                            </msub>
+                            <mo>+</mo>
+                            <mi>&#x3B3;</mi>
+                            <mi>V</mi>
+                            <mrow>
+                              <mo>(</mo>
+                              <msup>
+                                <mi>s</mi>
+                                <mo>&#x2032;</mo>
+                              </msup>
+                              <mo>)</mo>
+                            </mrow>
+                            <mo>}</mo>
+                          </mrow>
+                        </mstyle>
+                      </math>
+
+                    </div>
+                    </p>
+                for every time step 
+                <math xmlns="http://www.w3.org/1998/Math/MathML">
+                  <mstyle displaystyle="true">
+                    <mi>t</mi>
+                  </mstyle>
+                </math>
+                .
+                </p>
+                <p>
+                  When maximized over all possible policies, it conforms the <b>Bellman Equation</b>,
+                  <div align="center">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                      <mstyle displaystyle="true">
+                        <mi>V</mi>
+                        <mrow>
+                          <mo>(</mo>
+                          <mi>s</mi>
+                          <mo>)</mo>
+                        </mrow>
+                        <mo>=</mo>
+                        <munder>
+                          <mo>max</mo>
+                          <mi>&#x3C0;</mi>
+                        </munder>
+                        <mi>E</mi>
+                        <mrow>
+                          <mo>{</mo>
+                          <msub>
+                            <mi>r</mi>
+                            <mn>0</mn>
+                          </msub>
+                          <mo>+</mo>
+                          <mi>&#x3B3;</mi>
+                          <mi>V</mi>
+                          <mrow>
+                            <mo>(</mo>
+                            <msup>
+                              <mi>s</mi>
+                              <mo>&#x2032;</mo>
+                            </msup>
+                            <mo>)</mo>
+                          </mrow>
+                          <mo>}</mo>
+                        </mrow>
+                      </mstyle>
+                    </math>
+                  </div>
+                  which if satisfied, means that the problems it is being applied to exhibits an optimal substructure, hence, it can be solved by using dynamic programming.
+                </p>
+                <p>
+                  It is important to note that 
+                  <math xmlns="http://www.w3.org/1998/Math/MathML">
+                    <mstyle displaystyle="true">
+                      <mi>&#x3B3;</mi>
+                      <mspace width="10px"></mspace>
+                      <mi>&#x3F5;</mi>
+                      <mrow>
+                        <mo>[</mo>
+                        <mn>0</mn>
+                        <mo>,</mo>
+                        <mn>1</mn>
+                        <mo>]</mo>
+                      </mrow>
+                    </mstyle>
+                  </math>
+                  represents a constant, called the <i>discount rate</i>, which makes more worthy the rewards obtained during the first actions.
+                </p>
+                <p>
+                  From a human learning point of view, this methodology is closer to how a baby learns new concepts, by exploring and experimenting, not trying to find a previously known optimal path to the solution.
+                </p>
+                <p>
+                  <h3>Policy learning</h3>
                 </p>
             </div>
         </article>
