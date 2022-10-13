@@ -32,7 +32,7 @@
     <div class="abstract">
       <h2>Abstract</h2>
       <p>
-        When searching for the optimal policy in a Markov decision process, we can use two approaches: value iteration and policy iteration. Both approaches are based on the Bellman equation, but they differ in the way they use it. In this article, we will see how they work and how they differ.
+        When searching for the optimal policy in a Markov decision process, we can use two approaches: value iteration and policy iteration. In this article, we will see how they work and how they differ.
       </p>
     </div>
 
@@ -65,7 +65,7 @@
                     In model based approaches, where we know the probabilities of states transitioning and reward function beforehand, we can simulate the agent interactions with the environment to iteratively find out which is the optimal policy, by relying on dynamic programming, and then apply it directly to the real environment.
                 </p>
                 <p>
-                    To do so, we can use two approaches: value iteration and policy iteration. Both approaches are based on the Bellman equation, but they differ in the way they use it. In this article, we will see how they work, how they differ, when to use one or the other and an example of application of both with a real OpenAI Gym environment.
+                    To do so, we can use two approaches: value iteration and policy iteration. Both are based on the Bellman equation, but they differ in the way they use it. In this article, we will see how they work, how they differ, when to use one or the other and an example of application of both with a real OpenAI Gym environment.
                 </p>
             </div>
             <div id="valueiteration">
@@ -177,13 +177,17 @@
                             </mstyle>
                         </math>
                     </div>
-                    Note that if it is a discrete process, the first term of the summation, has a probability of 1 for all state-action pairs.
+                <span class="sidenote">
+                    *Note that if it is a discrete process, the first term of the summation, has a probability of 1 for all state-action pairs.
+                </span>
+
                     <figure>
                         <img id="valueiterationpseudocode" src="valueiterationpseudocode.png" width="600" height="400">
                         <figcaption>
                             Figure 2.1: Value iteration algorithm pseudocode. Source: <a href="https://github.com/mbodenham/gridworld-value-iteration">GitHub</a>.
                         </figcaption>
                     </figure>
+                    <p></p>
                     As it can be observed at Figure <a href="#valueiterationpseudocode">2.1</a>, the algorithm is composed of two main parts: the <b>policy evaluation</b> and the <b>policy improvement</b>.
                     <p>The policy evaluation is the process of updating the value function, which happens inside the loop, and the policy improvement is the process of updating the policy.</p>
                     <p>The algorithm stops when the value function converges, which means that the maximum difference between the value function of the current iteration and the previous one is less than a threshold.
@@ -236,6 +240,14 @@
             <div id="policyiteration">
                 <h2>3. Policy iteration</h2>
 
+                <figure>
+                    <img id="policyiterationpseudocode" src="policyiterationpseudocode.png" width="600" height="400">
+                    <figcaption>
+                        Figure 3.1: Policy iteration algorithm pseudocode. Source: <a href="https://ai.stackexchange.com/questions/20532/why-do-value-iteration-and-policy-iteration-obtain-similar-policies-even-though">StackExchange</a>.
+                    </figcaption>
+                </figure>
+                <p></p>
+                <p></p>
             </div>
         </article>
     </main>
