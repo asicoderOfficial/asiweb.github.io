@@ -32,13 +32,13 @@
     <header>
       <h1><span class="latex">Model based RL</h1>
       <p class="author">
-        Where reinforcement learning meets planning.<br>
+        When we know the transition probabilities beforehand.<br>
       </p>
     </header>
     <div class="abstract">
       <h2>Abstract</h2>
       <p>
-        
+        In the present post, model based reinforcement learning is defined, as well as the existing methods that can be used to solve it.
       </p>
     </div>
 
@@ -50,15 +50,35 @@
           <a href="#introduction">Introduction</a>
         </li>
         <li>
-          <a href="#valueiteration">Value iteration</a>
+          <a href="#valueiteration">Value & policy iteration</a>
         </li>
         <li>
-          <a href="#policyiteration">Policy iteration</a>
+          <a href="#resources">Useful resources</a>
         </li>
       </ol>
     </nav>
     <main>
         <article>
+          <div id="introduction">
+            <h2>1. Introduction</h2>
+            <p>
+              If we know all the probabilities of applying each possible action to each state, and thus the corresponding transitions, the problem we have to solve is how to search in an already known tree of states and actions the optimal action for each state.
+            </p>
+          </div>
+          <div id="valueiteration">
+            <h2>2. Value & policy iteration</h2>
+            <p>
+              See more details <a href="https://asicoderofficial.github.io/asiweb.github.io/rl/model-based/value-iteration.html">here</a>.
+            </p>
+          </div>
+          <div id="resources">
+            <h2>3. Useful resources</h2>
+              <ul>
+                <li>
+                  <a href="https://www.youtube.com/watch?v=sJIFUTITfBc&t=179s">Model Based Reinforcement Learning: Policy Iteration, Value Iteration, and Dynamic Programming</a>, by Steve Brunton.
+                </li>
+              </ul>
+          </div>
         </article>
     </main>
   </body>
