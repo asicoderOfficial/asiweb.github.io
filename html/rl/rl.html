@@ -45,9 +45,6 @@
           <a href="#learningenvironment">Components and workflow</a>
         </li>
         <li>
-          <a href="#notation">Notation</a>
-        </li>
-        <li>
           <a href="#behindthescenes">Behind the scenes</a>
         </li>
         <li>
@@ -88,6 +85,79 @@
                 <p>There may be one or more agents in the environment.</p>
                 <h3>Environment</h3>
                 <p>The environment is the entity that the agent interacts with. It is the one that changes its state depending on the actions of the agent, and gives rewards to the agent.</p>
+                <p>Depending on the different variables examined in it, they can be:</p>
+                <table>
+                  <tbody>
+                    <tr>
+                      <th scope="col">Variable</th>
+                      <th scope="col">Type 1</th>
+                      <th scope="col">Type 2</th>
+                    </tr>
+                    <tr>
+                      <th scope="row">Agent's observability</th>
+                      <td>
+                        <code>Fully observable</code>
+                      </td>
+                      <td>
+                        <code>Partially observable</code>
+                      </td>
+                    </tr>
+                    <tr>
+                      <th scope="row">State transitioning</th>
+                      <td>
+                        <code>Deterministic</code>
+                      </td>
+                      <td>
+                        <code>Stochastic</code>
+                      </td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Number of actions</th>
+                      <td>
+                        <code>Discrete</code>
+                      </td>
+                      <td>
+                        <code>Continuous</code>
+                      </td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Actions correlation</th>
+                      <td>
+                        <code>Episodic</code>
+                      </td>
+                      <td>
+                        <code>Non episodic</code>
+                      </td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Number of agents</th>
+                      <td>
+                        <code>Single agent</code>
+                      </td>
+                      <td>
+                        <code>Multi-agent</code>
+                      </td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Changes with time</th>
+                      <td>
+                        <code>Static</code>
+                      </td>
+                      <td>
+                        <code>Dynamic</code>
+                      </td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Multi-agent relations</th>
+                      <td>
+                        <code>Competitive</code>
+                      </td>
+                      <td>
+                        <code>Collaborative</code>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
                 <h3>State</h3>
                 <p>The state is the representation of the environment at a given time step. It is the one that the agent observes at each time step separately, and that the environment changes depending on the actions of the agent.</p>
                 <p>Each state can be either:
@@ -108,9 +178,6 @@
                     </ul>
                 </p>
                 <p></p>
-            </div>
-            <div id="notation">
-                <h2>3. Notation</h2>
             </div>
             <div id="behindthescenes">
                 <h2>4. Behind the scenes</h2>
@@ -361,7 +428,7 @@
                 </p>
                 <p>
                   The mentioned trajectories, are possible because the agent is describing a <a href="https://en.wikipedia.org/wiki/Markov_decision_process">Markov Decision Process</a> (see Figure <a href="#mdpexample">4.1</a>), which itself is an extension of <a href="https://en.wikipedia.org/wiki/Markov_chain">Markov chains</a>.
-                  It exhibits the Markov (<i>memoryless</i>) property, as probabilities of different outcomes are not dependent on the past, just the current state.
+                  It exhibits the Markov (<i>memoryless</i>) property, as probabilities of different outcomes are not dependent on the whole past history, just the previous state and action.
                   In order to find the optimal trajectory, we can follow 
                 <figure>
                     <img id="mdpexample" src="mdpexample.png" width="600" height="400">
@@ -605,14 +672,42 @@
                       </mrow>
                     </mstyle>
                   </math>
-                  represents a constant, called the <i>discount rate</i>, which makes more worthy the rewards obtained during the first actions.
+                  represents a constant, called the <i>discount rate</i>, which makes more worthy the rewards obtained during the first actions. This is used for both episodic and continuing tasks, so that the sum of
+                  future rewards always converges. When it is equal to one, the agent is said to be far sighted, while on the other hand, when it is equal to zero, the agent is said to be myopic. In practice, it is often
+                  set to a value between 0.95 and 0.99.
                 </p>
                 <p>
                   From a human learning point of view, this methodology is closer to how a baby learns new concepts, by exploring and experimenting, not trying to find a previously known optimal path to the solution.
                 </p>
                 <p>
                   <h3>Policy learning</h3>
+                  <p>
+                    Policy learning focuses on directly inferring a policy that maximizes the reward on a specific environment. Therefore, a mapping from states to action is kept in memory during learning. While a value function
+                    may be used to optimize the policy parameters, it won't be used to select an action.
+                  </p>
+                  <p>
+                    The final goal, as said before, is to find the optimal policy,
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                      <mstyle displaystyle="true">
+                        <msub>
+                          <mi>&#x3C0;</mi>
+                          <mo>&#x2217;</mo>
+                        </msub>
+                      </mstyle>
+                    </math>, which maximizes the total return.
+                  </p>
                 </p>
+            </div>
+            <div id="resources">
+              <h2>5. Useful resources</h2>
+              <ul>
+                <li>
+                  <a href="https://www.youtube.com/watch?v=0MNVhXEX9to">Reinforcement Learning: Machine Learning Meets Control Theory</a>, by Steve Brunton.
+                </li>
+                <li>
+                  <a href="https://www.youtube.com/playlist?list=PLqYmG7hTraZDVH599EItlEWsUOsJbAodm">DeepMind x UCL RL Lecture Series</a>, by DeepMind.
+                </li>
+              </ul>
             </div>
         </article>
     </main>
